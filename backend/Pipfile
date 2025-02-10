@@ -8,7 +8,7 @@ flask = "*"
 flask-restx = "*"
 autopep8 = "*"
 requests = "*"
-flask-cors = "*"
+flask-cors = "*"	
 
 [dev-packages]
 

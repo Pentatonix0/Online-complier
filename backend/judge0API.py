@@ -10,7 +10,6 @@ class Judge0API:
     @classmethod
     def createSubmission(cls, body):
         headers = {'Content-Type': 'application/json'}
-
         response = requests.post(
             f"{cls.url}/submissions/?base64_encoded=true&wait=false&fields=*", json=body, headers=headers)
         return response.json()
@@ -20,5 +19,4 @@ class Judge0API:
         headers = {}
         response = requests.get(
             f"{cls.url}/submissions/{token}?base64_encoded=true&wait=false&fields=*", headers=headers)
-
         return response.json()

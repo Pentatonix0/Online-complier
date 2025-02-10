@@ -7,7 +7,6 @@ import CustomInput from "./CustomInput";
 import { classnames } from "../utils/general";
 import LanguagesDropdown from "./LanguagesDropdown";
 import axios from "axios";
-//import { ToastContainer, toast } from "react-toastify";
 
 const pythonDefault = `print("Hello world!")`;
 
@@ -25,6 +24,7 @@ const Landing = () => {
     console.log(theme.value);
     console.log(code);
     console.log(customInput);
+    defineTheme(theme.value);
 
     const onSelectChange = (sl) => {
         console.log("selected Option...", sl);
@@ -41,7 +41,7 @@ const Landing = () => {
         };
         const options = {
             method: "POST",
-            url: process.env.REACT_APP_RAPID_API_URL + "/compilation/compile",
+            url: process.env.REACT_APP_API_URL + "/compilation/compile",
             WithCredantials: false,
             headers: {
                 "content-type": "application/json",
@@ -70,9 +70,7 @@ const Landing = () => {
         const options = {
             method: "GET",
             url:
-                process.env.REACT_APP_RAPID_API_URL +
-                "/compilation/compile/" +
-                token,
+                process.env.REACT_APP_API_URL + "/compilation/compile/" + token,
             WithCredantials: false,
             headers: {},
         };
@@ -99,7 +97,6 @@ const Landing = () => {
         }
     };
     useEffect(() => {
-        // Вызов defineTheme для загрузки и применения темы
         defineTheme(theme.value)
             .then(() => {
                 console.log(`Тема "${theme.value}" успешно загружена!`);
@@ -107,7 +104,7 @@ const Landing = () => {
             .catch((error) => {
                 console.error("Ошибка при загрузке темы:", error);
             });
-    }, [theme.value]); // Эффект сработает при изменении theme.value
+    }, [theme.value]);
 
     const onChange = (action, data) => {
         switch (action) {
@@ -120,18 +117,13 @@ const Landing = () => {
             }
         }
     };
+
     return (
         <>
             <div className="h-4 w-full bg-gradient-to-r from-green-500 via-yellow-500 to-red-500"></div>
             <div className="flex flex-row">
                 <div className="px-4 py-2">
                     <LanguagesDropdown onSelectChange={onSelectChange} />
-                </div>
-                <div className="px-4 py-2">
-                    {/* <ThemeDropdown
-                        handleThemeChange={handleThemeChange}
-                        theme={theme}
-                    /> */}
                 </div>
             </div>
             <div className="flex flex-row space-x-4 items-start px-4 py-4">
@@ -163,7 +155,6 @@ const Landing = () => {
                                 : "Compile and Execute"}
                         </button>
                     </div>
-                    {/* {outputDetails && <OutputDetails outputDetails={outputDetails} />} */}
                 </div>
             </div>
         </>
